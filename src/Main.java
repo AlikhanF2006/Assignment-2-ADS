@@ -57,5 +57,18 @@ public class Main {
         System.out.println("Front: " + queue.peek());
         System.out.println("Dequeue: " + queue.dequeue());
         System.out.println("New Front: " + queue.peek());
+
+        System.out.println("\n=== Testing MyMinHeap ===");
+        MyMinHeap<Integer> heap = new MyMinHeap<>();
+        heap.insert(40);
+        heap.insert(20);
+        heap.insert(10);
+        heap.insert(30);
+        heap.insert(50);
+        System.out.println("Min: " + heap.getMin());
+        System.out.println("Extract min: " + heap.extractMin());
+        System.out.println("New min: " + heap.getMin());
+        System.out.println("Size: " + heap.size());
+        System.out.println("Is empty? " + heap.empty());
     }
 }
