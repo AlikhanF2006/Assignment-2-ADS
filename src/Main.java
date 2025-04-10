@@ -1,7 +1,6 @@
 public class Main {
     public static void main(String[] args) {
         MyArrayList<String> list = new MyArrayList<>();
-
         list.add("Orange");
         list.add("Banana");
         list.add("Apple");
@@ -19,12 +18,12 @@ public class Main {
             System.out.println(item);
         }
 
-        System.out.println("\nExists \"Apple\"? " + list.exists("Apple")); // true
-        System.out.println("Exists \"Pineapple\"? " + list.exists("Pineapple")); // false
+        System.out.println("\nExists \"Apple\"? " + list.exists("Apple"));
+        System.out.println("Exists \"Pineapple\"? " + list.exists("Pineapple"));
 
         list.add("Banana");
-        System.out.println("\nIndex of 'Banana': " + list.indexOf("Banana")); // first
-        System.out.println("Last index of 'Banana': " + list.lastIndexOf("Banana")); // last
+        System.out.println("\nIndex of 'Banana': " + list.indexOf("Banana"));
+        System.out.println("Last index of 'Banana': " + list.lastIndexOf("Banana"));
 
         list.sort();
         System.out.println("\nAfter sort:");
@@ -39,6 +38,24 @@ public class Main {
         }
 
         list.clear();
-        System.out.println("\nAfter clear(), size: " + list.size()); // 0
+        System.out.println("\nAfter clear(), size: " + list.size());
+
+        System.out.println("\n=== Testing MyStack ===");
+        MyStack<String> stack = new MyStack<>(new MyArrayList<>());
+        stack.push("One");
+        stack.push("Two");
+        stack.push("Three");
+        System.out.println("Top: " + stack.peek());
+        System.out.println("Pop: " + stack.pop());
+        System.out.println("New Top: " + stack.peek());
+
+        System.out.println("\n=== Testing MyQueue ===");
+        MyQueue<String> queue = new MyQueue<>(new MyLinkedList<>());
+        queue.enqueue("First");
+        queue.enqueue("Second");
+        queue.enqueue("Third");
+        System.out.println("Front: " + queue.peek());
+        System.out.println("Dequeue: " + queue.dequeue());
+        System.out.println("New Front: " + queue.peek());
     }
 }
