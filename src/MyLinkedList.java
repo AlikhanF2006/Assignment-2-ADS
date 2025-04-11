@@ -4,7 +4,6 @@
  */
 public class MyLinkedList<T> implements MyList<T> {
 
-    // Inner class to represent a node in the linked list
     private static class MyNode<T> {
         T data;
         MyNode<T> next;
