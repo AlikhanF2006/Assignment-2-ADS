@@ -13,10 +13,10 @@ public class MyStack<T> {
     }
 
     /**
-     * Pushes an element onto the stack (adds to the end).
+     * Pushes an element onto the stack (adds to the top).
      */
     public void push(T item) {
-        list.addLast(item);
+        list.addFirst(item);
     }
 
     /**
@@ -26,8 +26,8 @@ public class MyStack<T> {
         if (empty()) {
             throw new IllegalStateException("Stack is empty");
         }
-        T item = list.getLast();
-        list.removeLast();
+        T item = list.getFirst();
+        list.removeFirst();
         return item;
     }
 
@@ -38,7 +38,7 @@ public class MyStack<T> {
         if (empty()) {
             throw new IllegalStateException("Stack is empty");
         }
-        return list.getLast();
+        return list.getFirst();
     }
 
     /**

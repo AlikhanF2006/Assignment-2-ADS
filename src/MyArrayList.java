@@ -5,8 +5,8 @@
  * @param <T> the type of elements held in this list
  */
 public class MyArrayList<T> implements MyList<T> {
-    private Object[] elements; // Array to store elements
-    private int length;        // Current number of elements
+    private Object[] elements;
+    private int length;
 
     /**
      * Default constructor initializing array with capacity 5
