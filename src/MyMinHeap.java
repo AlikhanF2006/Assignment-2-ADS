@@ -1,15 +1,15 @@
 /**
- * A simple implementation of a Min-Heap using array-based binary heap.
+ * A simple implementation of a Min-Heap using MyArrayList-based binary heap.
  * The smallest element is always at the root.
  *
  * @param <T> a type that implements Comparable
  */
 public class MyMinHeap<T extends Comparable<T>> {
-    private Object[] heap;
+    private MyArrayList<T> heap;
     private int size;
 
     public MyMinHeap() {
-        heap = new Object[10];
+        heap = new MyArrayList<>();
         size = 0;
     }
 
@@ -18,7 +18,7 @@ public class MyMinHeap<T extends Comparable<T>> {
      * @return true if heap is empty, false otherwise
      */
     public boolean empty() {
-        return size == 0;
+        return heap.size() == 0;
     }
 
     /**
@@ -26,7 +26,7 @@ public class MyMinHeap<T extends Comparable<T>> {
      * @return size of the heap
      */
     public int size() {
-        return size;
+        return heap.size();
     }
 
     /**
@@ -38,7 +38,7 @@ public class MyMinHeap<T extends Comparable<T>> {
         if (empty()) {
             throw new IllegalStateException("Heap is empty");
         }
-        return (T) heap[0];
+        return heap.get(0);
     }
 
     /**
@@ -46,12 +46,9 @@ public class MyMinHeap<T extends Comparable<T>> {
      * @param item the element to be inserted
      */
     public void insert(T item) {
-        if (size == heap.length) {
-            increaseCapacity();
-        }
-        heap[size] = item;
-        traverseUp(size);
+        heap.add(item);
         size++;
+        traverseUp(size - 1);
     }
 
     /**
@@ -63,23 +60,12 @@ public class MyMinHeap<T extends Comparable<T>> {
         if (empty()) {
             throw new IllegalStateException("Heap is empty");
         }
-        T min = (T) heap[0];
-        heap[0] = heap[size - 1];
-        heap[size - 1] = null;
+        T min = heap.get(0);
+        heap.set(0, heap.get(size - 1));
+        heap.remove(size - 1);
         size--;
         heapify(0);
         return min;
-    }
-
-    /**
-     * Doubles the capacity of the heap array when full.
-     */
-    private void increaseCapacity() {
-        Object[] newHeap = new Object[heap.length * 2];
-        for (int i = 0; i < heap.length; i++) {
-            newHeap[i] = heap[i];
-        }
-        heap = newHeap;
     }
 
     /**
@@ -89,8 +75,8 @@ public class MyMinHeap<T extends Comparable<T>> {
     private void traverseUp(int index) {
         while (index > 0) {
             int parentIndex = parentOf(index);
-            T current = (T) heap[index];
-            T parent = (T) heap[parentIndex];
+            T current = heap.get(index);
+            T parent = heap.get(parentIndex);
             if (current.compareTo(parent) < 0) {
                 swap(index, parentIndex);
                 index = parentIndex;
@@ -109,10 +95,10 @@ public class MyMinHeap<T extends Comparable<T>> {
         int right = rightChildOf(index);
         int smallest = index;
 
-        if (left < size && ((T) heap[left]).compareTo((T) heap[smallest]) < 0) {
+        if (left < size && heap.get(left).compareTo(heap.get(smallest)) < 0) {
             smallest = left;
         }
-        if (right < size && ((T) heap[right]).compareTo((T) heap[smallest]) < 0) {
+        if (right < size && heap.get(right).compareTo(heap.get(smallest)) < 0) {
             smallest = right;
         }
 
@@ -128,34 +114,19 @@ public class MyMinHeap<T extends Comparable<T>> {
      * @param j the second index
      */
     private void swap(int i, int j) {
-        Object temp = heap[i];
-        heap[i] = heap[j];
-        heap[j] = temp;
+        T temp = heap.get(i);
+        heap.set(i, heap.get(j));
+        heap.set(j, temp);
     }
 
-    /**
-     * Returns the index of the left child of a given element.
-     * @param index the index of the current element
-     * @return the index of the left child
-     */
     private int leftChildOf(int index) {
         return 2 * index + 1;
     }
 
-    /**
-     * Returns the index of the right child of a given element.
-     * @param index the index of the current element
-     * @return the index of the right child
-     */
     private int rightChildOf(int index) {
         return 2 * index + 2;
     }
 
-    /**
-     * Returns the index of the parent of a given element.
-     * @param index the index of the current element
-     * @return the index of the parent
-     */
     private int parentOf(int index) {
         return (index - 1) / 2;
     }
